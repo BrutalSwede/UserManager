@@ -24,5 +24,51 @@ namespace UserManager
         {
             InitializeComponent();
         }
+
+        private void UserListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void AdminListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ElevateUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DemoteAdmin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_User_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
+    public class User
+    {
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+
+
+        public User(string name, string email)
+        {
+            Name = name;
+            Email = email;
+        }
+
+        public string GetUserInfo()
+        {
+
+            return ($"{Name} + {Email}");
+        }
+
+
     }
 }
