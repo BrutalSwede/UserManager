@@ -28,11 +28,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label x:Name="AdminLabel" Content="Administrators" HorizontalAlignment="Left" Margin="325,7,0,0" VerticalAlignment="Top" Width="138" FontWeight="Bold" FontSize="14"/>
+        <Label x:Name="AdminLabel" Content="Administrators" HorizontalAlignment="Left" Margin="330,7,0,0" VerticalAlignment="Top" Width="138" FontWeight="Bold" FontSize="14"/>
         <Button x:Name="Button_ElevateUser" Content="Elevate -&gt;" HorizontalAlignment="Left" Margin="250,117,0,0" VerticalAlignment="Top" Width="75" Click="Button_ElevateUser_Click" IsEnabled="False"/>
         <Button x:Name="Button_DemoteAdmin" Content="&lt;- Demote" HorizontalAlignment="Left" Margin="250,142,0,0" VerticalAlignment="Top" Width="75" Click="Button_DemoteAdmin_Click" IsEnabled="False"/>
-        <Button x:Name="Button_RemoveUser" Content="Remove" HorizontalAlignment="Left" Margin="250,224,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="Button_RemoveUser" Content="Remove" HorizontalAlignment="Left" Margin="250,224,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
         <Button x:Name="Button_AddUser" Content="Add User" HorizontalAlignment="Left" Margin="95,343,0,0" VerticalAlignment="Top" Width="75" Click="Button_AddUser_Click" IsEnabled="False"/>
-        <Button x:Name="Button_EditUser" Content="Edit" HorizontalAlignment="Left" Margin="250,249,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="Button_EditUser" Content="Edit" HorizontalAlignment="Left" Margin="250,249,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
     </Grid>
 </Window>

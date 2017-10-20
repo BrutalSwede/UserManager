@@ -41,11 +41,13 @@ namespace UserManager
             {
                 Button_ElevateUser.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
+                Button_RemoveUser.IsEnabled = true;
             }
             else
             {
                 Button_ElevateUser.IsEnabled = false;
                 Button_EditUser.IsEnabled = false;
+                Button_RemoveUser.IsEnabled = false;
             }
         }
 
@@ -56,11 +58,13 @@ namespace UserManager
             {
                 Button_DemoteAdmin.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
+                Button_RemoveUser.IsEnabled = true;
             }
             else
             {
                 Button_DemoteAdmin.IsEnabled = false;
                 Button_EditUser.IsEnabled = false;
+                Button_RemoveUser.IsEnabled = false;
             }
         }
 
