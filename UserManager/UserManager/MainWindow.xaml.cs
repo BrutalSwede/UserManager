@@ -70,12 +70,14 @@ namespace UserManager
 
         private void Button_ElevateUser_Click(object sender, RoutedEventArgs e)
         {
+            (ListBox_Users.SelectedItem as User).Privilege = Privilege.Admin;
             ListBox_Admins.Items.Add(ListBox_Users.SelectedItem);
             ListBox_Users.Items.Remove(ListBox_Users.SelectedItem);
         }
 
         private void Button_DemoteAdmin_Click(object sender, RoutedEventArgs e)
         {
+            (ListBox_Admins.SelectedItem as User).Privilege = Privilege.User;
             ListBox_Users.Items.Add(ListBox_Admins.SelectedItem);
             ListBox_Admins.Items.Remove(ListBox_Admins.SelectedItem);
         }
@@ -106,7 +108,6 @@ namespace UserManager
 
         private bool CheckIfEmail(string input)
         {
-            // We need to determine if what the user inputs is a valid email address.
             string pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
             if (Regex.IsMatch(input, pattern))
                 return true;
@@ -114,27 +115,4 @@ namespace UserManager
                 return false;
         }
     }
-
-    public class User
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public Privilege Privilege { get; set; }
-
-
-        public User(string name, string email)
-        {
-            Name = name;
-            Email = email;
-            Privilege = Privilege.User;
-        }
-
-        public string GetUserInfo()
-        {
-
-            return ($"{Name} + {Email}");
-        }
-    }
-
-    public enum Privilege { User, Admin }
 }
