@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace UserManager
 {
     /// <summary>
@@ -24,6 +25,7 @@ namespace UserManager
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void Button_AddUser_Click(object sender, RoutedEventArgs e)
@@ -37,7 +39,7 @@ namespace UserManager
         private void ListBox_Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_Admins.SelectedIndex = -1;
-            if(ListBox_Users.SelectedIndex >= 0)
+            if (ListBox_Users.SelectedIndex >= 0)
             {
                 Button_ElevateUser.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
@@ -48,13 +50,19 @@ namespace UserManager
                 Button_ElevateUser.IsEnabled = false;
                 Button_EditUser.IsEnabled = false;
                 Button_RemoveUser.IsEnabled = false;
+            }            
+
+            if (ListBox_Users.SelectedItem is User)
+            {
+                User CurrentSelected = (User)ListBox_Users.SelectedItem;
+                Info_box.Content = $"{CurrentSelected.Name}\n{CurrentSelected.Email}";
             }
         }
 
         private void ListBox_Admins_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_Users.SelectedIndex = -1;
-            if(ListBox_Admins.SelectedIndex >= 0)
+            if (ListBox_Admins.SelectedIndex >= 0)
             {
                 Button_DemoteAdmin.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
@@ -114,5 +122,19 @@ namespace UserManager
             else
                 return false;
         }
+
+        private void Button_RemoveUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBox_Users.SelectedItem is User)
+            {
+                ListBox_Users.Items.Remove(ListBox_Users.SelectedItem);
+            }
+            else if (ListBox_Admins.SelectedItem is User)
+            {
+                ListBox_Admins.Items.Remove(ListBox_Admins.SelectedItem);
+            }
+        }
+
+
     }
 }
