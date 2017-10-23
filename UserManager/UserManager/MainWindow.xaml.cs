@@ -55,7 +55,11 @@ namespace UserManager
             if (ListBox_Users.SelectedItem is User)
             {
                 User CurrentSelected = (User)ListBox_Users.SelectedItem;
-                Info_box.Content = $"{CurrentSelected.Name}\n{CurrentSelected.Email}";
+                Info_box.Content = $"User Info:\n{CurrentSelected.Name}\n{CurrentSelected.Email}";
+            }
+            else
+            {
+                Info_box.Content = "User Info:";
             }
         }
 
@@ -73,6 +77,16 @@ namespace UserManager
                 Button_DemoteAdmin.IsEnabled = false;
                 Button_EditUser.IsEnabled = false;
                 Button_RemoveUser.IsEnabled = false;
+            }
+
+            if (ListBox_Admins.SelectedItem is User)
+            {
+                User CurrentSelected = (User)ListBox_Admins.SelectedItem;
+                Info_box.Content = $"User Info:\n{CurrentSelected.Name}\n{CurrentSelected.Email}";
+            }
+            else
+            {
+                Info_box.Content = "User Info:";
             }
         }
 
