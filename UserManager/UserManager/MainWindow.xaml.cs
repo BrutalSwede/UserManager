@@ -33,22 +33,26 @@ namespace UserManager
             {
                 if (ListBox_Admins.SelectedIndex >= 0)
                 {
-                    User SelectedAdmin = (User)ListBox_Admins.SelectedItem;
+                    User selectedAdmin = (User)ListBox_Admins.SelectedItem;
 
-                    SelectedAdmin.Name = TextBox_UserName.Text;
-                    SelectedAdmin.Email = TextBox_UserEmail.Text;
+                    selectedAdmin.Name = TextBox_UserName.Text;
+                    selectedAdmin.Email = TextBox_UserEmail.Text;
 
                     ListBox_Admins.Items.Refresh();
+                    UpdateInfoBox(ListBox_Admins);
                 }
                 else if (ListBox_Users.SelectedIndex >= 0)
                 {
-                    User SelectedUser = (User)ListBox_Users.SelectedItem;
+                    User selectedUser = (User)ListBox_Users.SelectedItem;
 
-                    SelectedUser.Name = TextBox_UserName.Text;
-                    SelectedUser.Email = TextBox_UserEmail.Text;
+                    selectedUser.Name = TextBox_UserName.Text;
+                    selectedUser.Email = TextBox_UserEmail.Text;
 
                     ListBox_Users.Items.Refresh();
+                    UpdateInfoBox(ListBox_Users);
                 }
+                Button_AddUser.Content = "Add User";
+                IsEditable = false;
             }
             else
             {
@@ -57,8 +61,6 @@ namespace UserManager
 
             TextBox_UserName.Clear();
             TextBox_UserEmail.Clear();
-            // Input already validated at this point.
-
         }
 
         private void ListBox_Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,6 +86,7 @@ namespace UserManager
         private void ListBox_Admins_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_Users.SelectedIndex = -1;
+
             if (ListBox_Admins.SelectedIndex >= 0)
             {
                 Button_DemoteAdmin.IsEnabled = true;
@@ -102,49 +105,37 @@ namespace UserManager
 
         private void Button_ElevateUser_Click(object sender, RoutedEventArgs e)
         {
-            (ListBox_Users.SelectedItem as User).Privilege = Privilege.Admin;
+            ((User) ListBox_Users.SelectedItem).Privilege = Privilege.Admin;
             ListBox_Admins.Items.Add(ListBox_Users.SelectedItem);
             ListBox_Users.Items.Remove(ListBox_Users.SelectedItem);
         }
 
         private void Button_DemoteAdmin_Click(object sender, RoutedEventArgs e)
         {
-            (ListBox_Admins.SelectedItem as User).Privilege = Privilege.User;
+            ((User) ListBox_Admins.SelectedItem).Privilege = Privilege.User;
             ListBox_Users.Items.Add(ListBox_Admins.SelectedItem);
             ListBox_Admins.Items.Remove(ListBox_Admins.SelectedItem);
         }
 
         private void TextBox_UserName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidateInputs(TextBox_UserName.Text, TextBox_UserEmail.Text))
-                Button_AddUser.IsEnabled = true;
-            else
-                Button_AddUser.IsEnabled = false;
+            Button_AddUser.IsEnabled = ValidateInputs(TextBox_UserName.Text, TextBox_UserEmail.Text);
         }
 
         private void TextBox_UserEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidateInputs(TextBox_UserName.Text, TextBox_UserEmail.Text))
-                Button_AddUser.IsEnabled = true;
-            else
-                Button_AddUser.IsEnabled = false;
+            Button_AddUser.IsEnabled = ValidateInputs(TextBox_UserName.Text, TextBox_UserEmail.Text);
         }
 
-        private bool ValidateInputs(string username, string email)
+        private static bool ValidateInputs(string username, string email)
         {
-            if (!string.IsNullOrWhiteSpace(username) && CheckIfEmail(email))
-                return true;
-            else
-                return false;
+            return !string.IsNullOrWhiteSpace(username) && CheckIfEmail(email);
         }
 
-        private bool CheckIfEmail(string input)
+        private static bool CheckIfEmail(string input)
         {
-            string pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
-            if (Regex.IsMatch(input, pattern))
-                return true;
-            else
-                return false;
+            const string pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            return Regex.IsMatch(input, pattern);
         }
 
         private void Button_RemoveUser_Click(object sender, RoutedEventArgs e)
@@ -169,17 +160,17 @@ namespace UserManager
 
             if (ListBox_Admins.SelectedIndex >= 0)
             {
-                User SelectedAdmin = (User)ListBox_Admins.SelectedItem;
+                User selectedAdmin = (User)ListBox_Admins.SelectedItem;
 
-                TextBox_UserName.Text = SelectedAdmin.Name;
-                TextBox_UserEmail.Text = SelectedAdmin.Email;
+                TextBox_UserName.Text = selectedAdmin.Name;
+                TextBox_UserEmail.Text = selectedAdmin.Email;
             }
             else if (ListBox_Users.SelectedIndex >= 0)
             {
-                User SelectedUser = (User)ListBox_Users.SelectedItem;
+                User selectedUser = (User)ListBox_Users.SelectedItem;
 
-                TextBox_UserName.Text = SelectedUser.Name;
-                TextBox_UserEmail.Text = SelectedUser.Email;
+                TextBox_UserName.Text = selectedUser.Name;
+                TextBox_UserEmail.Text = selectedUser.Email;
 
             }
         }
@@ -188,11 +179,11 @@ namespace UserManager
         {
             if (listBox.SelectedItem is User)
             {
-                User CurrentSelected = (User)listBox.SelectedItem;
+                User currentSelected = (User)listBox.SelectedItem;
                 Info_box.Content =
-                    $"Name: {CurrentSelected.Name}" +
-                    $"\nE-Mail: {CurrentSelected.Email}" +
-                    $"\nStatus: {CurrentSelected.Privilege}";
+                    $"Name: {currentSelected.Name}" +
+                    $"\nE-Mail: {currentSelected.Email}" +
+                    $"\nStatus: {currentSelected.Privilege}";
             }
             else
             {
