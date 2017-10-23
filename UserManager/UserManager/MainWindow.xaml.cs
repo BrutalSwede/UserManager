@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace UserManager
 {
     /// <summary>
@@ -25,19 +26,46 @@ namespace UserManager
         {
             InitializeComponent();
         }
-
+        public bool IsEditable = false;
         private void Button_AddUser_Click(object sender, RoutedEventArgs e)
         {
-            // Input already validated at this point.
-            ListBox_Users.Items.Add(new User(TextBox_UserName.Text, TextBox_UserEmail.Text));
+            if (IsEditable)
+            {
+                if (ListBox_Admins.SelectedIndex >= 0)
+                {
+                    User SelectedAdmin = (User)ListBox_Admins.SelectedItem;
+
+                    SelectedAdmin.Name = TextBox_UserName.Text;
+                    SelectedAdmin.Email = TextBox_UserEmail.Text;
+
+                    ListBox_Admins.Items.Refresh();
+                }
+                else if (ListBox_Users.SelectedIndex >= 0)
+                {
+                    User SelectedUser = (User)ListBox_Users.SelectedItem;
+
+                    SelectedUser.Name = TextBox_UserName.Text;
+                    SelectedUser.Email = TextBox_UserEmail.Text;
+
+                    ListBox_Users.Items.Refresh();
+                }
+            }
+            else
+            {
+                ListBox_Users.Items.Add(new User(TextBox_UserName.Text, TextBox_UserEmail.Text));
+            }
+
             TextBox_UserName.Clear();
             TextBox_UserEmail.Clear();
+            // Input already validated at this point.
+
         }
 
         private void ListBox_Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_Admins.SelectedIndex = -1;
-            if(ListBox_Users.SelectedIndex >= 0)
+
+            if (ListBox_Users.SelectedIndex >= 0)
             {
                 Button_ElevateUser.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
@@ -49,12 +77,14 @@ namespace UserManager
                 Button_EditUser.IsEnabled = false;
                 Button_RemoveUser.IsEnabled = false;
             }
+
+            UpdateInfoBox(ListBox_Users);
         }
 
         private void ListBox_Admins_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_Users.SelectedIndex = -1;
-            if(ListBox_Admins.SelectedIndex >= 0)
+            if (ListBox_Admins.SelectedIndex >= 0)
             {
                 Button_DemoteAdmin.IsEnabled = true;
                 Button_EditUser.IsEnabled = true;
@@ -66,6 +96,8 @@ namespace UserManager
                 Button_EditUser.IsEnabled = false;
                 Button_RemoveUser.IsEnabled = false;
             }
+
+            UpdateInfoBox(ListBox_Admins);
         }
 
         private void Button_ElevateUser_Click(object sender, RoutedEventArgs e)
@@ -113,6 +145,59 @@ namespace UserManager
                 return true;
             else
                 return false;
+        }
+
+        private void Button_RemoveUser_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (ListBox_Users.SelectedItem is User)
+            {
+                ListBox_Users.Items.Remove(ListBox_Users.SelectedItem);
+            }
+
+            if (ListBox_Admins.SelectedItem is User)
+            {
+                ListBox_Admins.Items.Remove(ListBox_Admins.SelectedItem);
+            }
+        }
+
+        private void Button_EditUser_Click(object sender, RoutedEventArgs e)
+        {
+            Button_AddUser.Content = "Apply";
+
+            IsEditable = true;
+
+            if (ListBox_Admins.SelectedIndex >= 0)
+            {
+                User SelectedAdmin = (User)ListBox_Admins.SelectedItem;
+
+                TextBox_UserName.Text = SelectedAdmin.Name;
+                TextBox_UserEmail.Text = SelectedAdmin.Email;
+            }
+            else if (ListBox_Users.SelectedIndex >= 0)
+            {
+                User SelectedUser = (User)ListBox_Users.SelectedItem;
+
+                TextBox_UserName.Text = SelectedUser.Name;
+                TextBox_UserEmail.Text = SelectedUser.Email;
+
+            }
+        }
+
+        public void UpdateInfoBox(ListBox listBox)
+        {
+            if (listBox.SelectedItem is User)
+            {
+                User CurrentSelected = (User)listBox.SelectedItem;
+                Info_box.Content =
+                    $"Name: {CurrentSelected.Name}" +
+                    $"\nE-Mail: {CurrentSelected.Email}" +
+                    $"\nStatus: {CurrentSelected.Privilege}";
+            }
+            else
+            {
+                Info_box.Content = "Name:\nE-Mail:\nStatus:";
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace UserManager
 {
+    
+
     public class User
     {
         public string Name { get; set; }
@@ -12,11 +14,10 @@
             Name = name;
             Email = email;
             Privilege = Privilege.User;
-        }
-
-        public string GetUserInfo()
+        }        
+        
+        public string GetUSerInfo()
         {
-
             return ($"{Name} + {Email}");
         }
     }

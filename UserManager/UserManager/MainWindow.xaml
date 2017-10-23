@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="UserManager" Height="405" Width="610" ResizeMode="CanMinimize">
     <Grid x:Name="Main_Grid" Margin="0,0,-5.887,0.226">
-        <TextBox x:Name="TextBox_UserEmail" HorizontalAlignment="Left" Height="20" Margin="10,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.51,0.502" TextChanged="TextBox_UserEmail_TextChanged"/>
-        <TextBox x:Name="TextBox_UserName" HorizontalAlignment="Left" Height="20" Margin="10,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" TextChanged="TextBox_UserName_TextChanged"/>
+        <TextBox x:Name="TextBox_UserEmail" HorizontalAlignment="Left" Height="20" Margin="85,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.51,0.502" TextChanged="TextBox_UserEmail_TextChanged"/>
+        <TextBox x:Name="TextBox_UserName" HorizontalAlignment="Left" Height="20" Margin="85,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" TextChanged="TextBox_UserName_TextChanged"/>
         <ListBox x:Name="ListBox_Users" HorizontalAlignment="Left" Height="252" Margin="10,36,0,0" VerticalAlignment="Top" Width="235" SelectionChanged="ListBox_Users_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -31,8 +31,11 @@
         <Label x:Name="AdminLabel" Content="Administrators" HorizontalAlignment="Left" Margin="330,7,0,0" VerticalAlignment="Top" Width="138" FontWeight="Bold" FontSize="14"/>
         <Button x:Name="Button_ElevateUser" Content="Elevate -&gt;" HorizontalAlignment="Left" Margin="250,117,0,0" VerticalAlignment="Top" Width="75" Click="Button_ElevateUser_Click" IsEnabled="False"/>
         <Button x:Name="Button_DemoteAdmin" Content="&lt;- Demote" HorizontalAlignment="Left" Margin="250,142,0,0" VerticalAlignment="Top" Width="75" Click="Button_DemoteAdmin_Click" IsEnabled="False"/>
-        <Button x:Name="Button_RemoveUser" Content="Remove" HorizontalAlignment="Left" Margin="250,224,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <Button x:Name="Button_AddUser" Content="Add User" HorizontalAlignment="Left" Margin="95,343,0,0" VerticalAlignment="Top" Width="75" Click="Button_AddUser_Click" IsEnabled="False"/>
-        <Button x:Name="Button_EditUser" Content="Edit" HorizontalAlignment="Left" Margin="250,249,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button x:Name="Button_RemoveUser" Content="Remove" HorizontalAlignment="Left" Margin="250,224,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="Button_RemoveUser_Click"/>
+        <Button x:Name="Button_AddUser" Content="Add User" HorizontalAlignment="Left" Margin="170,346,0,0" VerticalAlignment="Top" Width="75" Click="Button_AddUser_Click" IsEnabled="False"/>
+        <Button x:Name="Button_EditUser" Content="Edit" HorizontalAlignment="Left" Margin="250,249,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="Button_EditUser_Click"/>
+        <Label x:Name="Info_box" Content="Name:&#xD;&#xA;E-Mail:&#xD;&#xA;Status:" HorizontalAlignment="Left" Margin="330,293,0,0" VerticalAlignment="Top" Height="71" Width="145" FontWeight="Bold"/>
+        <Label Content="Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="39,293,0,0" VerticalAlignment="Top" Height="28" Width="55"/>
+        <Label Content="E-Mail" HorizontalAlignment="Left" Margin="39,317,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
