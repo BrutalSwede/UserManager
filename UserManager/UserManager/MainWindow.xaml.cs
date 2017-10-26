@@ -140,7 +140,7 @@ namespace UserManager
                 users.AddRange(ListBox_Admins.Items.OfType<User>().ToList());
                 users.AddRange(ListBox_Users.Items.OfType<User>().ToList());
 
-                if (users.Exists(User => User.Email.ToLower() == email.ToLower()))
+                if (users.Exists(User => User.Email.ToLower() == email.ToLower()) && !IsEditable)
                 {
                     Label_Error.Content = "Email is already taken.";
                     return false;
