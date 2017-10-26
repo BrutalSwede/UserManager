@@ -26,6 +26,7 @@ namespace UserManager
         {
             InitializeComponent();
         }
+
         public bool IsEditable = false;
         private void Button_AddUser_Click(object sender, RoutedEventArgs e)
         {
@@ -65,7 +66,9 @@ namespace UserManager
 
         private void ListBox_Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int currentIndex = ListBox_Users.SelectedIndex;
             ListBox_Admins.SelectedIndex = -1;
+            ListBox_Users.SelectedIndex = currentIndex;
 
             if (ListBox_Users.SelectedIndex >= 0)
             {
@@ -85,7 +88,9 @@ namespace UserManager
 
         private void ListBox_Admins_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int currentIndex = ListBox_Admins.SelectedIndex;
             ListBox_Users.SelectedIndex = -1;
+            ListBox_Admins.SelectedIndex = currentIndex;
 
             if (ListBox_Admins.SelectedIndex >= 0)
             {
@@ -127,9 +132,23 @@ namespace UserManager
             Button_AddUser.IsEnabled = ValidateInputs(TextBox_UserName.Text, TextBox_UserEmail.Text);
         }
 
-        private static bool ValidateInputs(string username, string email)
+        private bool ValidateInputs(string username, string email)
         {
-            return !string.IsNullOrWhiteSpace(username) && CheckIfEmail(email);
+            if (!string.IsNullOrWhiteSpace(username) && CheckIfEmail(email))
+            {
+                List<User> users = new List<User>();
+                users.AddRange(ListBox_Admins.Items.OfType<User>().ToList());
+                users.AddRange(ListBox_Users.Items.OfType<User>().ToList());
+
+                if (users.Exists(User => User.Email.ToLower() == email.ToLower()))
+                {
+                    Label_Error.Content = "Email is already taken.";
+                    return false;
+                }
+                Label_Error.Content = "";
+                return true;
+            }
+            return false;
         }
 
         private static bool CheckIfEmail(string input)
